@@ -1,0 +1,110 @@
+ISO:国际标准化组织
+OSI:开放系统互联模型  
+IOS：苹果系统思科操作维护系统
+Linux的的网络基础
+IP表命令       
+添加   格式：iptables [-t table] -A chain CRETIRIA -j ACTION
+将新规则加入到表table（默认filter）的chain链的最后位置
+插入
+格式：iptables [-t table] -I chain pos CRETIRIA -j ACTION
+将新规则插入到table表（默认filter）chain链的pos位置。原来之后的规则都往后推一位。pos的有效范围为：1 ~ num+1
+替换
+格式：iptables [-t table] -R chain pos CRETIRIA -j ACTION
+用新规则替换table表（默认filter）chain链的pos位置的规则。pos的有效范围为：1 ~ num
+删除
+格式：iptables [-t table] -D chain pos
+删除table表（默认filter）chain链的pos位置的规则。pos的有效范围为：1 ~ num
+包匹配（CRETIRIA）
+指定网口：
+-i ：数据包所进入的那个网络接口，例如 eth0、lo等，需与INPUT链配合 
+-o: 数据包所传出的那么网络接口，需与OUTPUT链配合
+指定协议
+-p：tcp, udp, icmp或all
+指定IP网络：
+-s：来源网络。可以是IP或网络 
+IP： 192.168.0.100 
+网络： 192.168.0.0/24 或 192.168.0.0/255.255.255.0 均可 
+可以在前加 ! 表示取反
+-d：目标网格。同 -s
+指定端口：
+–sport：指定来源端口。可以是单个端口，还可以是连续的端口，例如：1024:65535。
+–dport：指定目标端口。同–sport
+注意：要指定了tcp或udp协议才会有效。
+指定MAC地址：
+-m mac –mac-source aa:bb:cc:dd:ee:ff
+指定状态：
+-m state –state STATUS
+STATUS可以是：
+INVALID，无效包 
+ESTABLISHED，已经连接成功的连接状态 
+NEW，想要新立连接的数据包 
+RELATED，这个数据包与主机发送出去的数据包有关，（最常用
+例如：只要已建立连接或与已发出请求相关的数据包就予以通过，不合法数据包就丢弃
+-m state –state RELATED,ESTABLISHED
+ICMP数据比对
+ping操作发送的是ICMP包，如果不想被ping到，就可以拒绝。
+–icmp-type TYPE
+TYPE如下：
+8    echo-request（请求）
+0    echo-reply（响应）
+1
+2
+注意：需要与 -p icmp 配合使用。
+操作（ACTION）
+DROP，丢弃
+ACCEPT，接受
+REJECT，拒绝
+LOG，跟踪记录，将访问记录写入 /var/log/messages
+保存配置
+将新设置的规则保存到文件
+格式：iptables-save [-t table]
+将当前的配置保存到 /etc/sysconfig/iptables
+其它
+格式：iptables [-t table] [-FXZ]
+-F ：请除所有的已制订的规则 
+-X ：除掉所有用户“自定义”的chain 
+-Z ：将所有的统计值清0
+
+传输层 TCP 可靠 UDP 更快可能丢 协议
+
+网络接口层  ---地址解析协议ARP
+网际互联层  ---网际协议IP  互联网组管理协议IGMP 互联网控制报文协议ICMP
+传输层         ---传输控制协议TCP 用户数据报协议UDP
+
+CCNA
+网线 双绞线类型 568B 橙白 橙 绿白 蓝 蓝白 绿 棕白 棕
+八根线 1000M
+四根线 1 2 3 6 100M
+mstsc 远程桌面
+netstat -nao
+>tracert -d 114.114.114.114（电信的dns)  跟踪走的哪些路由器
+DNS 就是把域名转换成ip
+arp技术 把ip 转变为mac地址
+calc计算器
+TCP和UDP有什么区别
+TCP 有链接 可靠 丢包重传 首部20个字节
+UDP 无连接 不可靠 面向报文不重组数据包 首部8个字节
+
+描述端口在TCP/IP中的哪一层？以及端口的作用？举例常用的三种端口号对应的应用。
+传输层 区分ip的应用
+FTP 20 21
+telnet 23 
+SMTP 25
+POP3 110 
+http 80
+https 443
+
+问题阿帕奇安装错误
+问题
+继续以192.168.1.53/272为例讲解
+我们需要了解正常C网的网络号及位数
+是多少?
+平时大家用的是192.168.0.*或192.168.1.*网段，子网掩码是255 255 255.0
+那么子网掩码10进制转换到2进制就是:
+1111111.1111111.11111111.00000000
+前面24位表示网络号，后面8位表示主机数，具体的各参数容量可以参考步骤1.
+所以192.168.1.53/27的相应掩码是
+11111111.11111111.1111111.11100000由于网络号数量不足，所以得向右的主机数借位，主机数的可用数量减少。
+
+子网掩码换算   192.168.1.53/27 相应的掩码咋出来的？为啥要借位
+
