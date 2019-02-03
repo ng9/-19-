@@ -1,0 +1,84 @@
+1、物理拓扑：
+
+2、物理拓扑：根据网络设备的实际物理连接得出的，通过物理拓扑图，一旦网络中出现故障，可以清晰知道那个网络端口
+      逻辑拓扑：人更容易理解，他根据数据所经过的节点组成起来的实际应用情况
+3、TCP会话的建立：
+
+4、网络拓扑中的交换机：
+
+
+5、下面是二层交换机，上面是三层交换机：
+
+6、二层交换机工作模式：
+
+7、MAC地址有48bits，前24bits是供应商代码，后24bits由供应商分配
+例：a4-5e-60-11-11-11（苹果）
+       a4-5e-60——IEEE为厂商分配的供应商代码
+       11-11-11——由供应商按顺序分配
+  确认前24位就可以确认MAC地址的厂家，后24位任意匹配
+8、传输层——数据段；网络层——数据包
+      数据链路层——数据帧；物理层——比特
+9、二层交换机原理完整：
+
+10、三层交换机原理：
+
+11、在逻辑上，三层交换机和路由是等同的，三层交换的过程就是IP报文选路的过程
+       三层交换机的主要特点：1、在具有二层功能的同时提供三层功能
+                                               2、许多三层交换机用三层精确查找实现三层转发 
+                                              3、针对局域网，对以太网进行了优化，大部分三层交换机只提供以太网                                          
+                                                   接口和ATM局域网仿真接口
+12、vlan是什么？为什么要用它？例：
+
+vlan的效果：
+
+13、ACCESS接口规则：
+
+ACCESS接口作用：关联VLAN（只关联一个），多数情况交换机连接PC、服务器、路由，把接口配置为access接口
+14、MAC地址查询：
+
+
+
+15、ACCESS接口配置VLAN：
+
+例：Config
+       1、新建VLAN（vlan 10）
+       2、关联VLAN
+       Int f0/0
+       port link-type access     \\接口配置为静态接口
+       port default vlan3           \\接口关联VLAN 3，交换机默认关联vlan 1
+16、TRUNK接口规则：
+
+17、TRUNK接口配置VLAN：
+
+     TRUNK接口作用：多数在交换机设备间配置trunk
+        Config
+     1、接口配置为trunk模式
+        int   f0/0
+           port  link-type  trunk
+     2、允许vlan通过
+           port  trunk  allow-pass  vlan  all（允许所有vlan通过）
+18、查询本机IP地址：cmd——ping——ping   127.0.0.1
+19、ENSP——右键——设置——配置——本机端口号
+20、交换机高度（u）：1u=4.33厘米；大多数为4u
+21、交换接口有access和trunk，路由接口没有
+22、前2个代表路由，后面代表交换机
+
+23、2个黄色接口是路由接口，后面的是交换机接口
+
+24、在ENSP上要学会用Tab键，命令：sys——sysname  sw1——dis  int  e0/0/0——dis  vlan  brief                                     PC2关联vlan 10命令：vlan 10——quit——int e0/0/0——port link-type ?——display this——port default vlan 10   成功           dis  vlan  brief（查看命令）
+这是PC2 ping PC1不通
+命令：sys——int e0/0/0——port link-type ?——port link-type access ？——display this（查看）  这是PC2 ping PC1通                                                （CRT）
+25、  PC2关联vlan 10成功：
+
+若没有创建vlan 10：
+
+undo是删除命令：
+
+ping通：
+
+ping不通：
+
+配置trunk接口：
+
+vlan ID：
+
