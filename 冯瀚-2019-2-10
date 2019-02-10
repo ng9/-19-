@@ -1,0 +1,51 @@
+＃设置开机启动 
+Systemctl enable ip tables.service 
+＃保存iptables 
+Service iptables save
+
+＃删除原有的规则 
+Iptables -F 
+Iptables -X
+
+＃允许所有 
+iptables -P INPUT ACCEPT 
+iptables -P OUTPUT ACCEPT 
+iptables -P FORWARD ACCEPT 
+＃限制所有 
+iptables -P INPUT DROP 
+iptables -P OUTPUT DROP 
+iptables -P FORWARD DROP 
+＃在所有网卡上打开ping功能，便于维护和检测 
+iptables -A INPUT -p icmp –icmp-type 8 -j ACCEPT 
+iptables -A OUTPUT -p icmp –icmp-type 0 -j ACCEPT
+
+＃打开22端口，允许远程管理。 
+iptables -A INPUT -p tcp –dport 22 -j ACCEPT 
+iptables -A OUTPUT -p tcp –sport 22 -j ACCEPT 
+＃对其他主要允许的端口的 OUTPUT设置： 
+＃DNS 
+iptables -A OUTPUT -p TCP –dport 53 -jACCEPT 
+iptables -A OUTPUT -p UDP –sport 53 -jACCEPT
+
+＃HTTP 
+iptables -A OUTPUT -p TCP –dport 80 -jACCEPT 
+＃HTTPS 
+iptables -A OUTPUT -p TCP –dport 443 -jACCEPT
+
+＃Email 接受 和发送 
+iptables -A OUTPUT -p TCP –dport 110 -jACCEPT 
+iptables -A OUTPUT -p TCP –sport 25 -jACCEPT
+
+＃ FTP 数据和控制 
+iptables -A OUTPUT -p TCP –dport 20 -jACCEPT 
+iptables -A OUTPUT -p TCP –sport 21 -jACCEPT
+
+＃DHCP 
+iptables -A OUTPUT -p TCP –dport 68 -jACCEPT 
+iptables -A OUTPUT -p UDP –sport 68 -jACCEPT
+
+＃POP3S Email安全接收 
+iptables -A OUTPUT -p TCP –dport 995 -jACCEPT
+
+＃时间同步服务器 NTP 
+iptables -A OUTPUT -p TCP –dport 123 -jACCEPT
