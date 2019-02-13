@@ -1,5 +1,5 @@
 ＃设置开机启动 
-Systemctl enable ip tables.service 
+Systemctl enable ip tables.service ##systemctl enable iptables.service
 ＃保存iptables 
 Service iptables save
 
