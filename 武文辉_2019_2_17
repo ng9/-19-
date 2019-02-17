@@ -1,0 +1,39 @@
+一、服务器单位为U
+二、进入ACCESS接口的数据包必须没有vlan tag的流量，如有vlan tag将丢弃数据包
+三、
+ACCESS
+数据的入方向打tag
+数据的出方向去tag
+作用:
+关联VLAN，多数情况交换机连接PC、服务器、路由、把接口配置为access接口
+1. （新建VLAN   ）vlan 10
+2.（关联VLAN）Int e0/0
+port link-type access \\接口配置为静态接口，交换机默认为ACCESS接口
+port default vlan 3  \\接口关联VLAN 3，交换机默认关联vlan 1
+TRUNK
+数据的入方向保留tag
+数据的出方向保留 tag
+作用：
+多数在交换机和交换机设备间配置trunk
+Config
+1. 接口配置为trunk模式
+Int e0/0
+ Port link-type trunk
+2. 允许vlan通过
+port trunk allow-pass vlan all
+
+四、（？）可以查找代码，（TAB）可以自动补全
+五、1、sys  2、sysname +名字           可以改名
+六、gvrp华为私有 vlan同步协议 ，思科为vtp，不推荐使用
+七、物理层（比特），数据链路层（帧），网络层（包），传输层（数据段）
+八、IP地址唯一标识一台网络设备，由32个二进制位组成
+IP地址采用点分十进制格式显示
+IP地址分为两个部分：网络地址部分，主机地址部分
+九、127为环回地址，只要电脑安装tcp/ip协议就可以ping的通。ping自己的电脑，用来测试。
+网络部分 主机部分 地址类型 用途
+any 全0 网络地址 代表一个网段
+any 全1 广播地址 特定网段的所有节点
+127 any 环回地址 环回测试
+全0 全0 所有网络 华为VRP路由器用于指定默认路由
+全1 全1 广播地址 本网段所有节点
+十、私有地址：10.x.x.x,       192.168.x.x      172.16.x.x——172.31.x.x
